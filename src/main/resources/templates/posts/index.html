@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="partials :: head">
+
+</head>
+<body>
+<nav th:replace="partials :: navbar"></nav>
+
+<div th:each="post : ${posts}">
+    <p th:text="${post.getTitle()}"></p>
+
+</div>
+
+</body>
+</html>
