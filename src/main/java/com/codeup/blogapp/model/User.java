@@ -2,6 +2,8 @@ package com.codeup.blogapp.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 
 @Entity
 @Table(name = "postUsers")
@@ -10,19 +12,30 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Post> post;
+
+
+
     public User(){}
 
     public User(long id, String username, String email, String password){
         this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String username, String email, String password){
         this.username = username;
         this.email = email;
         this.password = password;
@@ -58,5 +71,9 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Post> getPost(){
+        return post;
     }
 }
