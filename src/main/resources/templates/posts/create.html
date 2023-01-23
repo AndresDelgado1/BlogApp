@@ -6,22 +6,22 @@
 </head>
 <body>
 <!--                               👇  no form model binding  👇                                     -->
-<form action=/posts/create" method="post">
-  <label for="title">Title:</label><br>
-  <input type="text" id="title" name="title"><br>
-  <label for="body">Description:</label><br>
-  <input type="text" id="body" name="body">
-  <input type="submit" value="Submit">
-</form>
-
-
-<!--<form th:action="@{/posts/create}" th:method="post" th:object="${post}">-->
-<!--    <label >Title:</label><br>-->
-<!--    <input th:field="*{title}"><br>-->
-<!--    <label >Description:</label><br>-->
-<!--    <input th:field="*{body}">-->
-<!--    <input type="submit" value="Submit">-->
+<!--<form action=/posts/create" method="post">-->
+<!--  <label for="title">Title:</label><br>-->
+<!--  <input type="text" id="title" name="title"><br>-->
+<!--  <label for="body">Description:</label><br>-->
+<!--  <input type="text" id="body" name="body">-->
+<!--  <input type="submit" value="Submit">-->
 <!--</form>-->
+
+
+<form th:action="@{/posts/create}" th:method="post" th:object="${post}">
+    <label >Title:</label><br>
+    <input th:field="*{title}"><br>
+    <label >Description:</label><br>
+    <input th:field="*{body}">
+    <input type="submit" value="Submit">
+</form>
 
 </body>
 </html>

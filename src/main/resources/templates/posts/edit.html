@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+
+<form th:action="'/posts/edit/' + ${post.getId()}" method="post">
+
+  <label>Post Title:</label>
+  <input name="title" type="text" th:value="${post.getTitle()}">
+
+  <label>Post Body:</label>
+  <input name="body" type="text" th:value="${post.getBody()}">
+
+  <button type="submit">Submit</button>
+</form>
+
+
+
+</body>
+</html>

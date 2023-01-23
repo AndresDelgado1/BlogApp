@@ -48,19 +48,36 @@ public class PostController {
 
 //    👇---------------------------no form model binding-------------------------👇
 
+//    @GetMapping("/posts/create")
+//    public String getForm() {
+//        return "/posts/create";
+//    }
+
+//    @PostMapping("/posts/create")
+//    public String createPost(@RequestParam(name="title") String title, @RequestParam(name="body") String body ){
+////        postDao.save(new Post(title, body));
+////        return "redirect:/posts";
+//
+//        Post post = new Post();
+//        post.setTitle(title);
+//        post.setBody(body);
+//        User user = userDao.getReferenceById(1L);
+//        post.setUser(user);
+//        postDao.save(post);
+//        return "redirect:/posts";
+//    }
+
+
+//    👇--------------------------form model binding----------------------------👇
+
     @GetMapping("/posts/create")
-    public String getForm() {
-        return "/posts/create";
+    public String getForm(Model model){
+        model.addAttribute("post", new Post());
+        return "posts/create";
     }
 
     @PostMapping("/posts/create")
-    public String createPost(@RequestParam(name="title") String title, @RequestParam(name="body") String body ){
-//        postDao.save(new Post(title, body));
-//        return "redirect:/posts";
-
-        Post post = new Post();
-        post.setTitle(title);
-        post.setBody(body);
+    public String createPost(@ModelAttribute Post post){
         User user = userDao.getReferenceById(1L);
         post.setUser(user);
         postDao.save(post);
@@ -68,21 +85,22 @@ public class PostController {
     }
 
 
-//    👇--------------------------form model binding----------------------------👇
 
-//    @GetMapping("/posts/create")
-//    public String getForm(Model model){
-//        model.addAttribute("post", new Post());
-//        return "posts/create";
-//    }
-//
-//    @PostMapping("/posts/create")
-//    public String createPost(@ModelAttribute Post post){
-//        User user = userDao.getReferenceById(1L);
-//        post.setUser(user);
-//        postDao.save(post);
-//        return "redirect:/posts";
-//    }
+    @GetMapping(path = "/posts/edit/{id}")
+    public String getEdit(@PathVariable long id, Model model){
+//        model.addAttribute("title", "Edit Post");
+        Post post = postDao.getReferenceById(id);
+        model.addAttribute("post", post);
+        return "posts/edit";
+    }
 
+    @PostMapping(path = "/posts/edit/{id}")
+    public String postEdit(@PathVariable long id, @RequestParam String title, @RequestParam String body){
+        Post post = postDao.getReferenceById(id);
+        post.setTitle(title);
+        post.setBody(body);
+        postDao.save(post);
+        return "redirect:/posts";
+    }
 }
 
