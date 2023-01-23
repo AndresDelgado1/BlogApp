@@ -38,8 +38,11 @@ public class PostController {
 
 
     @GetMapping("/posts/{id}")
-    public String id(@PathVariable String id) {
-        return "Hello " + id + "!";
+    public String id(@PathVariable long id, Model model) {
+        Post post = postDao.getReferenceById(id);
+        model.addAttribute("title", post.getTitle());
+        model.addAttribute("body", post.getBody());
+        return "/posts/show";
     }
 
 
