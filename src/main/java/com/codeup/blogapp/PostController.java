@@ -88,7 +88,7 @@ public class PostController {
         User user = userDao.getReferenceById(1L);
         post.setUser(user);
 
-        emailService.prepareAndSend(post, "testing post" + post.getTitle(), "body of post" + post.getBody());
+        emailService.prepareAndSend(post,  post.getTitle(),  post.getBody());
 
         postDao.save(post);
         return "redirect:/posts";
