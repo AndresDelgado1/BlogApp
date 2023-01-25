@@ -1,10 +1,11 @@
 package com.codeup.blogapp.controllers;
 
-import ch.qos.logback.core.model.Model;
+
 import com.codeup.blogapp.model.User;
 import com.codeup.blogapp.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;

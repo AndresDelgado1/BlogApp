@@ -6,6 +6,7 @@ import com.codeup.blogapp.repositories.PostRepository;
 import com.codeup.blogapp.repositories.UserRepository;
 import com.codeup.blogapp.service.EmailService;
 import jakarta.persistence.PreUpdate;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -83,16 +84,24 @@ public class PostController {
         return "posts/create";
     }
 
-    @PostMapping("/posts/create")
-    public String createPost(@ModelAttribute Post post){
-        User user = userDao.getReferenceById(1L);
-        post.setUser(user);
-
-        emailService.prepareAndSend(post,  post.getTitle(),  post.getBody());
-
-        postDao.save(post);
-        return "redirect:/posts";
-    }
+//    @PostMapping("/posts/create")
+//    public String createPost(@ModelAttribute Post post){
+//        User user = userDao.getReferenceById(1L);
+//        post.setUser(user);
+//
+//        emailService.prepareAndSend(post,  post.getTitle(),  post.getBody());
+//
+//        postDao.save(post);
+//        return "redirect:/posts";
+//    }
+@PostMapping(path = "/posts/create")
+public String postCreate(@ModelAttribute Post createdPost){
+    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    createdPost.setUser(user);
+    emailService.prepareAndSend(createdPost, "Your latest blog post: " + createdPost.getTitle(), "This is the body of your post!" + createdPost.getBody());
+    postDao.save(createdPost);
+    return "redirect:/posts";
+}
 
 
 
@@ -112,5 +121,7 @@ public class PostController {
         postDao.save(post);
         return "redirect:/posts";
     }
+
+
 }
 
